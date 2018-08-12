@@ -1,3 +1,5 @@
+#!/usr/local/bin/python3.7
+
 from utils.ConfManager import get_conf
 from utils.Dynamo import Dynamo
 from utils.FileManager import FileManager
@@ -10,7 +12,15 @@ import os
 
 if __name__ == '__main__':
     os.system("mkdir -p tmp")
-
+    print("[CONF] Tablename: {}  AWS region: {}  File size: {}  Output format: {}  Bucket name: {}  Path on S3: {}  Delete Items: {}".format(
+        get_conf("tablename"), 
+        get_conf("aws_region"), 
+        get_conf("limit_per_file"),
+        get_conf("output_format"),
+        get_conf("bucket_name"), 
+        get_conf("bucket_path"),
+        get_conf("delete_items"),
+        ))
     # Get Items from DB
     db = Dynamo(get_conf("tablename"), get_conf("aws_region"))
     items = db.fetch_all_items(get_conf("limit_per_file"))
@@ -27,5 +37,9 @@ if __name__ == '__main__':
     # Upload file on S3
     s3 = S3()
     if s3.upload_s3(get_conf("bucket_name"), get_conf("bucket_path"), filename):
-        # Delete items in Dynamo
-        db.delete_items(items)
+        if get_conf("delete_items"):
+            # Delete items in Dynamo
+            db.delete_items(items)
+        else:
+            print("[INFO] Items not deleted.")
+    print("[DONE]")

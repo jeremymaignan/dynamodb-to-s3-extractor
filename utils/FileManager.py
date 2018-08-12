@@ -11,20 +11,21 @@ class DecimalEncoder(json.JSONEncoder):
         return super(DecimalEncoder, self).default(o)
 
 class FileManager():
+    # Get all keys to build csv's header
     def get_keys(self, items):
         keys = []
         for item in items:
             for key in item.keys():
                 if key not in keys:
                     keys.append(key)
-        print("[INFO] Header {}".format(keys))
+        print("[INFO] {} Columns in header".format(len(keys)))
         return keys
 
     def write_csv(self, items, filename):
         keys = self.get_keys(items)
         file = csv.writer(open("tmp/{}".format(filename), "w"), delimiter=';')
         file.writerow(keys)
-        print("[INFO] Write csv")
+        print("[INFO] Writing csv")
         for item in tqdm(items):
             tmp = []
             for key in keys:

@@ -1,6 +1,8 @@
 import yaml
 import os
 
+# Get configuration from env
+# Use default conf if the configuration is not set in env
 def get_conf(key):
     try:
         return os.environ[key.upper()]

@@ -5,3 +5,4 @@ aws_region: eu-west-1
 limit_per_file: 1000
 bucket_name: users
 bucket_path: database_backup
+delete_items: False
