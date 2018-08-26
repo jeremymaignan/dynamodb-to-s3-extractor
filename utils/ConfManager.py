@@ -26,11 +26,11 @@ class Configuration():
         try:
             opts, args = getopt.getopt(argv, "o:f:t:a:l:b:p:d:")
         except getopt.GetoptError:
-            print('test.py -o <outputfile> -f <format> -t <tablename> -a <aws_region> -l <limit> -b <bucket_name> -p <bucket_path> -d <delete>')
+            print('export_dynamodb_to_s3.py -o <outputfile> -f <format> -t <tablename> -a <aws_region> -l <limit> -b <bucket_name> -p <bucket_path> -d <delete>')
             sys.exit(2)
         for opt, arg in opts:
             if opt in ('-h', "--help"):
-                print('test.py -o <outputfile> -f <format> -t <tablename> -a <aws_region> -l <limit> -b <bucket_name> -p <bucket_path> -d <delete>')
+                print('export_dynamodb_to_s3.py -o <outputfile> -f <format> -t <tablename> -a <aws_region> -l <limit> -b <bucket_name> -p <bucket_path> -d <delete>')
                 sys.exit()
             elif opt in ("-o", "--outputfile"):
                 self.conf["filename"] = arg
