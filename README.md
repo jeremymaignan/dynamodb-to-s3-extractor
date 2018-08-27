@@ -22,3 +22,7 @@ delete_items: False
 pip3 install -r requirements.txt
 export_dynamodb_to_s3 -o <outputfile> -f <format> -t <tablename> -a <aws_region> -l <limit> -b <bucket_name> -p <bucket_path> -d <delete>
 ```
+
+### Output:
+
+![output_screenshot](https://github.com/jeremymaignan/dynamodb-to-s3-extractor/blob/master/output_screenshot.png)
