@@ -3,18 +3,20 @@ import os
 import sys, getopt
 
 class Configuration():
-
+    # Load configuration
     def __init__(self, argv):
         self.conf = self.get_conf_file()
         self.get_conf_from_env()
         self.get_conf_from_params(argv)
         self.check_types()
 
+    # Load static configuration from file
     def get_conf_file(self):
         with open('config.yaml') as json_data_file:
             conf = yaml.load(json_data_file)
             return conf 
 
+    # Check if configuration is not override in env
     def get_conf_from_env(self):
         for key in self.conf.keys():
             try:
@@ -22,15 +24,16 @@ class Configuration():
             except:
                 pass
 
+    # Check if configuration is not override by the command line params
     def get_conf_from_params(self, argv):
         try:
             opts, args = getopt.getopt(argv, "o:f:t:a:l:b:p:d:")
         except getopt.GetoptError:
-            print('export_dynamodb_to_s3.py -o <outputfile> -f <format> -t <tablename> -a <aws_region> -l <limit> -b <bucket_name> -p <bucket_path> -d <delete>')
+            print('export_dynamodb_to_s3 -o <outputfile> -f <format> -t <tablename> -a <aws_region> -l <limit> -b <bucket_name> -p <bucket_path> -d <delete>')
             sys.exit(2)
         for opt, arg in opts:
             if opt in ('-h', "--help"):
-                print('export_dynamodb_to_s3.py -o <outputfile> -f <format> -t <tablename> -a <aws_region> -l <limit> -b <bucket_name> -p <bucket_path> -d <delete>')
+                print('export_dynamodb_to_s3 -o <outputfile> -f <format> -t <tablename> -a <aws_region> -l <limit> -b <bucket_name> -p <bucket_path> -d <delete>')
                 sys.exit()
             elif opt in ("-o", "--outputfile"):
                 self.conf["filename"] = arg
@@ -49,6 +52,7 @@ class Configuration():
             elif opt in ("-d", "--delete"):
                 self.conf["delete_items"] = arg
 
+    # Check type of config (delete_items must be a bool and limit an integer)
     def check_types(self):
         if str == type(self.conf["delete_items"]):
             if "true" == self.conf["delete_items"].lower():

@@ -21,6 +21,7 @@ class FileManager():
         print("[INFO] {} Columns in header".format(len(keys)))
         return keys
 
+    # Create output file and write cvs
     def write_csv(self, items, filename):
         keys = self.get_keys(items)
         file = csv.writer(open("tmp/{}".format(filename), "w"), delimiter=';')
@@ -35,6 +36,7 @@ class FileManager():
                     tmp.append("")
             file.writerow(tmp)
 
+    # Create output file and write json
     def write_json(self, items, filename):
         with open("tmp/{}".format(filename), 'w+') as f:
             f.write(json.dumps(items, cls=DecimalEncoder))

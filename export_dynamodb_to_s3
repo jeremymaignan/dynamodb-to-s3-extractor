@@ -12,7 +12,11 @@ import os
 import sys
 
 if __name__ == '__main__':
+    # Load configuration
+    # Pass command line params
     configuration = Configuration(sys.argv[1:])
+    
+    # Create /tmp folder (where the output files are stored)
     os.system("mkdir -p tmp")
     print("[CONF] Tablename: {}  AWS region: {}  File size: {}  Output format: {}  Bucket name: {}  Path on S3: {}  Delete Items: {}".format(
         configuration.conf["tablename"], 

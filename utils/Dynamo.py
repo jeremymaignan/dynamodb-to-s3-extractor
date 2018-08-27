@@ -10,6 +10,8 @@ class Dynamo():
         self.tablename = tablename
         print("[INFO] Connected to {}".format(tablename))
 
+    # Dynamicaly find the indexes of the DB
+    # Needed to delete items
     def get_index(self):
         hash_ = ""
         range_ = ""

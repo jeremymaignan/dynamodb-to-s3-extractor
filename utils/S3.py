@@ -2,6 +2,7 @@ from boto3.s3.transfer import S3Transfer
 import boto3
 
 class S3():
+    # Upload file on S3 (according to the bucket and path passed as parameters)
     def upload_s3(self, bucket_name, path, filename):
         try:
             transfer = S3Transfer(boto3.client('s3'))
